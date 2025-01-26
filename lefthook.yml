@@ -2,7 +2,7 @@ pre-commit:
   parallel: true
   commands:
     lint:
-      run: pnpm biome lint {staged_files}
+      run: pnpm biome lint
       glob: "*.{ts,tsx}"
       root: "./app/"
 
