@@ -8,4 +8,5 @@ pre-commit:
 
 commit-msg:
   commands:
-    run: pnpm commitlint --edit {1}
+    commit:
+      run: pnpm commitlint --edit {1}
