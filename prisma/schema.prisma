@@ -6,3 +6,86 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id         String   @id @default(cuid())
+  did        String   @unique
+  username   String   @unique
+  bio        String?
+  avatar_url String?
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  groups           GroupMember[]
+  posts            Post[]
+  comments         Comment[]
+  sent_invites     Invite[]      @relation("Inviter")
+  received_invites Invite[]      @relation("Invitee")
+}
+
+model Group {
+  id             String   @id @default(cuid())
+  name           String
+  description    String?
+  is_invite_only Boolean  @default(false)
+  created_at     DateTime @default(now())
+  updated_at     DateTime @default(now())
+
+  members GroupMember[]
+  posts   Post[]
+  invites Invite[]
+}
+
+model GroupMember {
+  id       String @id @default(cuid())
+  user_id  String
+  group_id String
+  role     String @default("member")
+
+  user  User  @relation(fields: [user_id], references: [id])
+  group Group @relation(fields: [group_id], references: [id])
+
+  @@unique([user_id, group_id])
+}
+
+model Invite {
+  id         String   @id @default(cuid())
+  token      String   @unique
+  group_id   String
+  inviter_id String
+  invitee_id String?
+  expires_at DateTime
+  created_at DateTime @default(now())
+
+  group   Group @relation(fields: [group_id], references: [id])
+  inviter User  @relation("Inviter", fields: [inviter_id], references: [id])
+  invitee User? @relation("Invitee", fields: [invitee_id], references: [id])
+
+  @@index([token])
+}
+
+model Post {
+  id         String   @id @default(cuid())
+  content    String
+  author_id  String
+  group_id   String
+  post_id    String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  author   User      @relation(fields: [author_id], references: [id])
+  group    Group     @relation(fields: [group_id], references: [id])
+  comments Comment[]
+}
+
+model Comment {
+  id         String   @id @default(cuid())
+  content    String
+  author_id  String
+  post_id    String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  author User @relation(fields: [author_id], references: [id])
+  post   Post @relation(fields: [post_id], references: [id])
+}
