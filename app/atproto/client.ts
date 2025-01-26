@@ -1,6 +1,6 @@
 import { NodeOAuthClient } from "@atproto/oauth-client-node";
 import { StateStore, SessionStore } from "./storage";
-import { prisma } from "../db.server";
+import { prisma } from "#/app/db.server";
 
 const IS_DEV = process.env.NODE_ENV === "development";
 const PUBLIC_URL = "https://bloc.fyi";

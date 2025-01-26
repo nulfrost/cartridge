@@ -2,9 +2,6 @@
   "name": "bloc",
   "private": true,
   "type": "module",
-  "imports": {
-    "#*": "./*"
-  },
   "scripts": {
     "build": "react-router build",
     "dev": "react-router dev",
