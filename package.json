@@ -9,9 +9,14 @@
     "build": "react-router build",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
+    "lexgen": "pnpm exec lex gen-api ./app/src ./lexicons/**/*.json",
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
+    "@atproto/api": "^0.13.31",
+    "@atproto/lexicon": "^0.4.5",
+    "@atproto/oauth-client-node": "^0.2.8",
+    "@epic-web/remember": "^1.1.0",
     "@prisma/client": "^6.2.1",
     "@react-router/fs-routes": "^7.1.3",
     "@react-router/node": "^7.1.3",
@@ -23,6 +28,7 @@
     "react-router": "^7.1.3"
   },
   "devDependencies": {
+    "@atproto/lex-cli": "^0.5.6",
     "@biomejs/biome": "1.9.4",
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",

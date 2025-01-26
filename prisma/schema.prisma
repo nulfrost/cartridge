@@ -99,3 +99,13 @@ model Comment {
 
   @@map("comments")
 }
+
+model Session {
+  key     String @unique
+  session String
+}
+
+model State {
+  key   String @unique
+  state String
+}
