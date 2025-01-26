@@ -4,7 +4,7 @@ pre-commit:
     lint:
       run: pnpm biome lint
       glob: "*.{ts,tsx}"
-      root: "./app/"
+      root: "app/"
 
 commit-msg:
   commands:
