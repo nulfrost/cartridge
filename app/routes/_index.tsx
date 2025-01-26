@@ -1,5 +1,3 @@
-
-
 export default function Home() {
-  return <div>bloc home</div>
+	return <div>bloc home</div>;
 }
