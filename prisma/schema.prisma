@@ -21,6 +21,8 @@ model User {
   comments         Comment[]
   sent_invites     Invite[]      @relation("Inviter")
   received_invites Invite[]      @relation("Invitee")
+
+  @@map("users")
 }
 
 model Group {
@@ -34,6 +36,8 @@ model Group {
   members GroupMember[]
   posts   Post[]
   invites Invite[]
+
+  @@map("groups")
 }
 
 model GroupMember {
@@ -46,6 +50,7 @@ model GroupMember {
   group Group @relation(fields: [group_id], references: [id])
 
   @@unique([user_id, group_id])
+  @@map("group_members")
 }
 
 model Invite {
@@ -62,6 +67,7 @@ model Invite {
   invitee User? @relation("Invitee", fields: [invitee_id], references: [id])
 
   @@index([token])
+  @@map("invites")
 }
 
 model Post {
@@ -76,6 +82,8 @@ model Post {
   author   User      @relation(fields: [author_id], references: [id])
   group    Group     @relation(fields: [group_id], references: [id])
   comments Comment[]
+
+  @@map("posts")
 }
 
 model Comment {
@@ -88,4 +96,6 @@ model Comment {
 
   author User @relation(fields: [author_id], references: [id])
   post   Post @relation(fields: [post_id], references: [id])
+
+  @@map("comments")
 }
