@@ -1,10 +1,10 @@
 import { client } from "#/app/atproto/client";
-import type { Route } from "./+types/callback";
-import { commitSession, getSession } from "#/app/session.server";
+import type { Route } from "./+types/oauth.callback";
+import { commitSession, getSession } from "#/app/session";
 
 export async function loader({ request }: Route.LoaderArgs) {
-	let params = new URLSearchParams(request.url.split("?")[1]);
-	let cookieSession = await getSession(request.headers.get("Cookie"));
+	const params = new URLSearchParams(request.url.split("?")[1]);
+	const cookieSession = await getSession(request.headers.get("Cookie"));
 
 	try {
 		const { session } = await client.callback(params);
