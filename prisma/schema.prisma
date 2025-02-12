@@ -10,102 +10,80 @@ datasource db {
 model User {
   id         String   @id @default(cuid())
   did        String   @unique
-  username   String   @unique
-  bio        String?
-  avatar_url String?
+  handle     String?
   created_at DateTime @default(now())
-  updated_at DateTime @default(now())
-
-  groups           GroupMember[]
-  posts            Post[]
-  comments         Comment[]
-  sent_invites     Invite[]      @relation("Inviter")
-  received_invites Invite[]      @relation("Invitee")
+  logs       Log[]
+  reviews    Review[]
 
   @@map("users")
 }
 
-model Group {
-  id             String   @id @default(cuid())
-  name           String
-  description    String?
-  is_invite_only Boolean  @default(false)
-  created_at     DateTime @default(now())
-  updated_at     DateTime @default(now())
+model Game {
+  id              String    @id @default(cuid())
+  name            String
+  cover_art_image String?
+  release_date    DateTime?
+  game_studios    String[]
+  platforms       String[]
+  slug            String    @unique
 
-  members GroupMember[]
-  posts   Post[]
-  invites Invite[]
+  logs    Log[]
+  reviews Review[]
 
-  @@map("groups")
+  @@map("games")
 }
 
-model GroupMember {
-  id       String @id @default(cuid())
-  user_id  String
-  group_id String
-  role     String @default("member")
+model Log {
+  id          String    @id @default(cuid())
+  uri         String
+  status      Status
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @default(now())
+  started_at  DateTime?
+  finished_at DateTime?
 
-  user  User  @relation(fields: [user_id], references: [id])
-  group Group @relation(fields: [group_id], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 
-  @@unique([user_id, group_id])
-  @@map("group_members")
+  game   Game   @relation(fields: [gameId], references: [id])
+  gameId String
+
+  @@index([userId])
+  @@index([gameId])
+  @@map("logs")
 }
 
-model Invite {
-  id         String   @id @default(cuid())
-  token      String   @unique
-  group_id   String
-  inviter_id String
-  invitee_id String?
-  expires_at DateTime
-  created_at DateTime @default(now())
+model Review {
+  id     String  @id @default(cuid())
+  rating Int
+  text   String?
+  uri    String  @unique
 
-  group   Group @relation(fields: [group_id], references: [id])
-  inviter User  @relation("Inviter", fields: [inviter_id], references: [id])
-  invitee User? @relation("Invitee", fields: [invitee_id], references: [id])
+  reviewer   User   @relation(fields: [reviewerId], references: [id])
+  reviewerId String
 
-  @@index([token])
-  @@map("invites")
-}
-
-model Post {
-  id         String   @id @default(cuid())
-  content    String
-  author_id  String
-  group_id   String
-  post_id    String
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now())
-
-  author   User      @relation(fields: [author_id], references: [id])
-  group    Group     @relation(fields: [group_id], references: [id])
-  comments Comment[]
-
-  @@map("posts")
-}
-
-model Comment {
-  id         String   @id @default(cuid())
-  content    String
-  author_id  String
-  post_id    String
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now())
-
-  author User @relation(fields: [author_id], references: [id])
-  post   Post @relation(fields: [post_id], references: [id])
-
-  @@map("comments")
+  game   Game   @relation(fields: [gameId], references: [id])
+  gameId String
 }
 
 model Session {
   key     String @unique
   session String
+
+  @@map("sessions")
 }
 
 model State {
   key   String @unique
   state String
+
+  @@map("states")
+}
+
+enum Status {
+  PLAYING
+  COMPLETED
+  PLANNED
+  DROPPED
+  ON_HOLD
 }

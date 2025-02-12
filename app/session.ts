@@ -11,7 +11,7 @@ type SessionFlashData = {
 const { commitSession, getSession, destroySession } =
 	createCookieSessionStorage<SessionData, SessionFlashData>({
 		cookie: {
-			name: "__bloc_session",
+			name: "__cartridge_session",
 			httpOnly: true,
 			path: "/",
 			sameSite: "lax",

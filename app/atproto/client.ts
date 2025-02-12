@@ -3,13 +3,13 @@ import { StateStore, SessionStore } from "./storage";
 import { prisma } from "#/app/db.server";
 
 const IS_DEV = process.env.NODE_ENV === "development";
-const PUBLIC_URL = "https://bloc.fyi";
+const PUBLIC_URL = "https://cartridge.community";
 const LOCAL_URL = "http://[::1]:5173";
 const URL = IS_DEV ? LOCAL_URL : PUBLIC_URL;
 
 export const client = new NodeOAuthClient({
 	clientMetadata: {
-		client_name: "bloc - build your communities your way",
+		client_name: "cartridge - letterboxd but for video game tracking",
 		client_id: !IS_DEV
 			? `${PUBLIC_URL}/client-metadata.json`
 			: `http://localhost?redirect_uri=${encodeURIComponent(
