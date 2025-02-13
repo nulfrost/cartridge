@@ -2,11 +2,16 @@
  * GENERATED CODE - DO NOT MODIFY
  */
 import { ValidationResult, BlobRef } from '@atproto/lexicon'
-import { isObj, hasProp } from '../../../util'
-import { lexicons } from '../../../lexicons'
 import { CID } from 'multiformats/cid'
+import { validate as _validate } from '../../../lexicons'
+import { $Typed, is$typed as _is$typed, OmitKey } from '../../../util'
+
+const is$typed = _is$typed,
+  validate = _validate
+const id = 'community.cartridge.review'
 
 export interface Record {
+  $type: 'community.cartridge.review'
   /** ID for the game being reviewed (IGDB) */
   gameId: string
   /** The rating for the video game on a scale from 1 to 5 */
@@ -18,15 +23,12 @@ export interface Record {
   [k: string]: unknown
 }
 
-export function isRecord(v: unknown): v is Record {
-  return (
-    isObj(v) &&
-    hasProp(v, '$type') &&
-    (v.$type === 'community.cartridge.review#main' ||
-      v.$type === 'community.cartridge.review')
-  )
+const hashRecord = 'main'
+
+export function isRecord<V>(v: V) {
+  return is$typed(v, id, hashRecord)
 }
 
-export function validateRecord(v: unknown): ValidationResult {
-  return lexicons.validate('community.cartridge.review#main', v)
+export function validateRecord<V>(v: V) {
+  return validate<Record & V>(v, id, hashRecord, true)
 }

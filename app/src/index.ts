@@ -2,15 +2,16 @@
  * GENERATED CODE - DO NOT MODIFY
  */
 import { XrpcClient, FetchHandler, FetchHandlerOptions } from '@atproto/xrpc'
-import { schemas } from './lexicons'
+import { schemas } from './lexicons.js'
 import { CID } from 'multiformats/cid'
-import * as CommunityCartridgeDefs from './types/community/cartridge/defs'
-import * as CommunityCartridgeLog from './types/community/cartridge/log'
-import * as CommunityCartridgeReview from './types/community/cartridge/review'
+import { OmitKey, Un$Typed } from './util.js'
+import * as CommunityCartridgeDefs from './types/community/cartridge/defs.js'
+import * as CommunityCartridgeLog from './types/community/cartridge/log.js'
+import * as CommunityCartridgeReview from './types/community/cartridge/review.js'
 
-export * as CommunityCartridgeDefs from './types/community/cartridge/defs'
-export * as CommunityCartridgeLog from './types/community/cartridge/log'
-export * as CommunityCartridgeReview from './types/community/cartridge/review'
+export * as CommunityCartridgeDefs from './types/community/cartridge/defs.js'
+export * as CommunityCartridgeLog from './types/community/cartridge/log.js'
+export * as CommunityCartridgeReview from './types/community/cartridge/review.js'
 
 export const COMMUNITY_CARTRIDGE = {
   DefsPlaying: 'community.cartridge.defs#playing',
@@ -68,7 +69,7 @@ export class LogRecord {
   }
 
   async list(
-    params: Omit<ComAtprotoRepoListRecords.QueryParams, 'collection'>,
+    params: OmitKey<ComAtprotoRepoListRecords.QueryParams, 'collection'>,
   ): Promise<{
     cursor?: string
     records: { uri: string; value: CommunityCartridgeLog.Record }[]
@@ -81,7 +82,7 @@ export class LogRecord {
   }
 
   async get(
-    params: Omit<ComAtprotoRepoGetRecord.QueryParams, 'collection'>,
+    params: OmitKey<ComAtprotoRepoGetRecord.QueryParams, 'collection'>,
   ): Promise<{
     uri: string
     cid: string
@@ -95,25 +96,25 @@ export class LogRecord {
   }
 
   async create(
-    params: Omit<
+    params: OmitKey<
       ComAtprotoRepoCreateRecord.InputSchema,
       'collection' | 'record'
     >,
-    record: CommunityCartridgeLog.Record,
+    record: Un$Typed<CommunityCartridgeLog.Record>,
     headers?: Record<string, string>,
   ): Promise<{ uri: string; cid: string }> {
-    record.$type = 'community.cartridge.log'
+    const collection = 'community.cartridge.log'
     const res = await this._client.call(
       'com.atproto.repo.createRecord',
       undefined,
-      { collection: 'community.cartridge.log', ...params, record },
+      { collection, ...params, record: { ...record, $type: collection } },
       { encoding: 'application/json', headers },
     )
     return res.data
   }
 
   async delete(
-    params: Omit<ComAtprotoRepoDeleteRecord.InputSchema, 'collection'>,
+    params: OmitKey<ComAtprotoRepoDeleteRecord.InputSchema, 'collection'>,
     headers?: Record<string, string>,
   ): Promise<void> {
     await this._client.call(
@@ -133,7 +134,7 @@ export class ReviewRecord {
   }
 
   async list(
-    params: Omit<ComAtprotoRepoListRecords.QueryParams, 'collection'>,
+    params: OmitKey<ComAtprotoRepoListRecords.QueryParams, 'collection'>,
   ): Promise<{
     cursor?: string
     records: { uri: string; value: CommunityCartridgeReview.Record }[]
@@ -146,7 +147,7 @@ export class ReviewRecord {
   }
 
   async get(
-    params: Omit<ComAtprotoRepoGetRecord.QueryParams, 'collection'>,
+    params: OmitKey<ComAtprotoRepoGetRecord.QueryParams, 'collection'>,
   ): Promise<{
     uri: string
     cid: string
@@ -160,25 +161,25 @@ export class ReviewRecord {
   }
 
   async create(
-    params: Omit<
+    params: OmitKey<
       ComAtprotoRepoCreateRecord.InputSchema,
       'collection' | 'record'
     >,
-    record: CommunityCartridgeReview.Record,
+    record: Un$Typed<CommunityCartridgeReview.Record>,
     headers?: Record<string, string>,
   ): Promise<{ uri: string; cid: string }> {
-    record.$type = 'community.cartridge.review'
+    const collection = 'community.cartridge.review'
     const res = await this._client.call(
       'com.atproto.repo.createRecord',
       undefined,
-      { collection: 'community.cartridge.review', ...params, record },
+      { collection, ...params, record: { ...record, $type: collection } },
       { encoding: 'application/json', headers },
     )
     return res.data
   }
 
   async delete(
-    params: Omit<ComAtprotoRepoDeleteRecord.InputSchema, 'collection'>,
+    params: OmitKey<ComAtprotoRepoDeleteRecord.InputSchema, 'collection'>,
     headers?: Record<string, string>,
   ): Promise<void> {
     await this._client.call(
