@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "community.cartridge.review",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A user's review/rating for a video game",
+      "record": {
+        "type": "object",
+        "required": ["gameId", "rating"],
+        "properties": {
+          "gameId": {
+            "type": "string",
+            "description": "ID for the game being reviewed (IGDB)"
+          },
+          "rating": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5,
+            "description": "The rating for the video game on a scale from 1 to 5"
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 3000,
+            "maxGraphemes": 300,
+            "description": "Written review of the video game"
+          },
+          "containsSpoilers": {
+            "type": "boolean",
+            "default": false,
+            "description": "Whether the review contains spoilers or not"
+          }
+        }
+      }
+    }
+  }
+}

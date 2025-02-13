@@ -1,0 +1,52 @@
+{
+  "lexicon": 1,
+  "id": "community.cartridge.log",
+  "description": "An object representing a single log within a person's backlog",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["gameId", "status"],
+        "properties": {
+          "gameId": {
+            "type": "string",
+            "description": "ID for the game being reviewed (IGDB)"
+          },
+          "status": {
+            "type": "string",
+            "description": "The current playing status for a video game",
+            "knownValues": [
+              "community.cartridge.defs#playing",
+              "community.cartridge.defs#completed",
+              "community.cartridge.defs#planned",
+              "community.cartridge.defs#dropped",
+              "community.cartridge.defs#onHold"
+            ]
+          },
+          "startedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When the user started playing a game"
+          },
+          "finishedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When the user finished/dropped a game"
+          },
+          "platform": {
+            "type": "string",
+            "desription": "The platform that the video game was played on",
+            "knownValues": [
+              "community.cartridge.defs#playstation",
+              "community.cartridge.defs#pc",
+              "community.cartridge.defs#xbox",
+              "community.cartridge.defs#nintendo"
+            ]
+          } 
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "community.cartridge.defs",
+  "description": "Common definitions for cartridge.community",
+  "defs": {
+    "playing": {
+      "type": "token",
+      "description": "State representing a video game that is in progress by a user"
+    },
+    "completed": {
+      "type": "token",
+      "description": "State representing a video game that was completed by a user"
+    },
+    "planned": {
+      "type": "token",
+      "description": "State representing a video game that is planned to be played by a user"
+    },
+    "dropped": {
+      "type": "token",
+      "description": "State representing a video game that has been dropped by a user"
+    },
+    "onHold": {
+      "type": "token",
+      "description": "State representing a video game that was started by a user but put on hold"
+    },
+    "pc": {
+      "type": "token",
+      "description": "Games that are available on the PC platform"
+    },
+    "playstation": {
+      "type": "token",
+      "description": "Games that are available on the playstation platform"
+    },
+    "xbox": {
+      "type": "token",
+      "description": "Games that are available on the xbox platform"
+    },
+    "nintendo": {
+      "type": "token",
+      "description": "Games that are available on the nintendo platform"
+    }
+  }
+}
