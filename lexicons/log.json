@@ -37,7 +37,7 @@
           },
           "platform": {
             "type": "string",
-            "desription": "The platform that the video game was played on",
+            "description": "The platform that the video game was played on",
             "knownValues": [
               "community.cartridge.defs#playstation",
               "community.cartridge.defs#pc",

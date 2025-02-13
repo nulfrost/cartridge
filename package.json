@@ -6,7 +6,7 @@
     "build": "react-router build",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
-    "lexgen": "pnpm exec lex gen-api ./app/src ./lexicons/**/*.json",
+    "lexgen": "pnpm exec lex gen-api ./app/src ./lexicons/*.json",
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
