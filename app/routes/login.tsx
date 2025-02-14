@@ -1,38 +1,42 @@
 import { client } from "#/app/atproto/client";
-import { redirect } from "react-router";
-import { ensureValidHandle, ensureValidDid } from "@atproto/syntax";
+import { redirect, data } from "react-router";
+import { isValidHandle } from "@atproto/syntax";
 import type { Route } from "./+types/login";
 import { Button } from "#/app/components/ui/button";
 import { Input } from "#/app/components/ui/input";
 import { Label } from "#/app/components/ui/label";
 
 export async function action({ request }: Route.ActionArgs) {
-  const formData = await request.formData();
-  const handleOrDid = formData.get("handle") as string;
+  try {
+    const formData = await request.formData();
+    const handleOrDid = formData.get("handle") as string;
 
-  // user can input a handle or a did
-  // first check which one it is
-  // then check if it is valid
-  if (typeof handleOrDid !== "string") {
-    throw new Error("Invalid handle");
+    // user can input a handle or a did
+    // first check which one it is
+    // then check if it is valid
+    // TODO: Support DID login as well as 3rd party PDS login
+    if (typeof handleOrDid !== "string" || !isValidHandle(handleOrDid)) {
+      return data({ error: "Invalid handle" }, { status: 400 });
+    }
+
+    const ac = new AbortController();
+
+    const redirectUrl = await client.authorize(handleOrDid, {
+      signal: ac.signal,
+    });
+
+    throw redirect(redirectUrl.toString());
+  } catch (error) {
+    throw error;
   }
-
-  const ac = new AbortController();
-
-  const redirectUrl = await client.authorize(handleOrDid, {
-    signal: ac.signal,
-  });
-
-  throw redirect(redirectUrl.toString());
-  return {};
 }
 
-export default function Login() {
+export default function Login({ actionData }: Route.ComponentProps) {
   return (
     <div className="h-full flex flex-col items-center justify-center">
-      <div className="max-w-sm w-full mb-6">
+      <div className="max-w-md w-full mb-6">
         <h1 className="text-xl font-bold">Login</h1>
-        <div className="text-sm">
+        <p>
           Don&apos;t have an account?{" "}
           <a
             href="https://bsky.app/"
@@ -42,15 +46,19 @@ export default function Login() {
           >
             Sign up
           </a>
-        </div>
+        </p>
       </div>
-      <form className="w-full max-w-sm" method="POST">
-        <Label htmlFor="handle" className="block mb-1">
+      <form className="w-full max-w-md" method="POST">
+        <Label htmlFor="handle" className="block text-md">
           Handle
         </Label>
-        <span className="text-xs text-gray-500 mb-2 block">
-          You can use your handle (e.g. @username.bsky.social) or your did (e.g.
-          did:plc:abc123) to log in.
+        {actionData?.error ? (
+          <span className="block text-red-600 mb-2" id="username-error">
+            {actionData?.error}
+          </span>
+        ) : null}
+        <span className="block text-gray-600 mb-2" id="username-hint">
+          Please enter a valid handle, e.g. username.bsky.social
         </span>
         <Input
           id="handle"
@@ -58,7 +66,10 @@ export default function Login() {
           type="text"
           required
           className="mb-4"
+          autoComplete="username"
           maxLength={2048}
+          aria-invalid={actionData?.error ? true : undefined}
+          aria-describedby="username-hint username-error"
         />
         <Button type="submit" className="w-full">
           Login
