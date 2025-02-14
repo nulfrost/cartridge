@@ -9,18 +9,46 @@ import {
 
 import type { Route } from "./+types/root";
 import "#/app/tailwind.css";
+import { TID } from "@atproto/common";
+import { getSession } from "#/app/session";
+import { client } from "#/app/atproto/client";
+import { Agent } from "@atproto/api";
+
+export async function action({ request }: Route.ActionArgs) {
+	const cookieSession = await getSession(request.headers.get("Cookie"));
+	const userSession = await client.restore(cookieSession?.data?.did);
+
+	const agent = new Agent(userSession);
+
+	const rkey = TID.nextStr();
+
+	const record = {
+		$type: "community.cartridge.log",
+		gameId: "1234",
+		status: "community.cartridge.defs#playing",
+		platform: "community.cartridge.defs#playstation",
+		startedAt: new Date().toISOString(),
+	};
+
+	await agent.com.atproto.repo.putRecord({
+		repo: agent.assertDid,
+		collection: "cartridge.community.log",
+		rkey,
+		record,
+	});
+}
 
 export function Layout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en">
+		<html lang="en" className="h-full">
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<Meta />
 				<Links />
 			</head>
-			<body>
-				{children}
+			<body className="h-full">
+				<main className="h-full bg-gray-50 antialiased">{children}</main>
 				<ScrollRestoration />
 				<Scripts />
 			</body>

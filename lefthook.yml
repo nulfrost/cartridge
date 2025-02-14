@@ -4,6 +4,8 @@ pre-commit:
     lint:
       run: pnpm biome lint
       glob: "*.{ts,tsx}"
+      exclude:
+        - src/*.ts
       root: "app/"
 
 commit-msg:

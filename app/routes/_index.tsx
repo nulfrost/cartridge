@@ -1,9 +1,10 @@
-import type { Route } from "./+types/_index";
-
-export async function loader({ request }: Route.LoaderArgs) {
-	return {};
-}
-
 export default function Home() {
-	return <div>bloc home</div>;
+	return (
+		<div>
+			<h1>cartridge</h1>
+			<form method="POST">
+				<button type="submit">add record</button>
+			</form>
+		</div>
+	);
 }

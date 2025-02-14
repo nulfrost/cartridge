@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "preinstall": "npx -y only-allow pnpm",
+    "postinstall": "lefthook install",
     "build": "react-router build",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
@@ -12,6 +13,7 @@
   },
   "dependencies": {
     "@atproto/api": "^0.14.0",
+    "@atproto/common": "^0.4.8",
     "@atproto/lexicon": "^0.4.7",
     "@atproto/oauth-client-node": "^0.2.11",
     "@epic-web/remember": "^1.1.0",
