@@ -41,7 +41,7 @@ export default function Login({ actionData }: Route.ComponentProps) {
           <a
             href="https://bsky.app/"
             target="_blank"
-            className="underline underline-offset-4"
+            className="underline underline-offset-4 text-primary"
             aria-label="Sign up for a new account on Bluesky, opens in a new tab"
           >
             Sign up
