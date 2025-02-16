@@ -1,5 +1,5 @@
 import { client } from "#/app/atproto/client";
-import { redirect, data } from "react-router";
+import { redirect, data, useNavigation, Form } from "react-router";
 import type { Route } from "./+types/login";
 import { Button } from "#/app/components/ui/button";
 import { Input } from "#/app/components/ui/input";
@@ -7,6 +7,7 @@ import { Label } from "#/app/components/ui/label";
 import { resolveFromIdentity } from "#/app/lib/pds";
 import { OAuthResolverError } from "@atproto/oauth-client-node";
 import { XRPCError } from "@atcute/client";
+import { useEffect, useRef, type ComponentRef } from "react";
 
 export function meta() {
   return [
@@ -31,7 +32,7 @@ export async function action({ request }: Route.ActionArgs) {
     if (typeof identity !== "string") {
       return data(
         { error: "Error: handle must be a valid handle" },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -56,6 +57,20 @@ export async function action({ request }: Route.ActionArgs) {
 }
 
 export default function Login({ actionData }: Route.ComponentProps) {
+  const identityInputRef = useRef<ComponentRef<"input">>(null);
+
+  const navigation = useNavigation();
+
+  const isSubmitting =
+    navigation.state === "submitting" && navigation.formAction === "/login";
+
+  console.log({ navigation });
+
+  useEffect(() => {
+    if (actionData?.error) {
+      identityInputRef.current?.focus();
+    }
+  }, []);
   return (
     <div className="h-full flex flex-col items-center justify-center">
       <div className="max-w-md w-full mb-6">
@@ -72,34 +87,37 @@ export default function Login({ actionData }: Route.ComponentProps) {
           </a>
         </p>
       </div>
-      <form className="w-full max-w-md" method="POST">
-        <Label htmlFor="identity" className="block text-md">
-          Handle or DID
-        </Label>
-        {actionData?.error ? (
-          <span className="block text-red-600 mb-2" id="username-error">
-            {actionData?.error}
+      <Form className="w-full max-w-md" method="POST">
+        <fieldset disabled={isSubmitting}>
+          <Label htmlFor="identity" className="block text-md">
+            Handle or DID
+          </Label>
+          {actionData?.error ? (
+            <span className="block text-red-600 mb-2" id="username-error">
+              {actionData?.error}
+            </span>
+          ) : null}
+          <span className="block text-gray-600 mb-2 text-xs" id="username-hint">
+            Please enter a valid handle or DID, e.g. username.bsky.social or
+            did:plc:...
           </span>
-        ) : null}
-        <span className="block text-gray-600 mb-2 text-xs" id="username-hint">
-          Please enter a valid handle or DID, e.g. username.bsky.social or
-          did:plc:...
-        </span>
-        <Input
-          id="identity"
-          name="identity"
-          type="text"
-          required
-          className="mb-4"
-          autoComplete="username"
-          maxLength={2048}
-          aria-invalid={actionData?.error ? true : undefined}
-          aria-describedby="username-hint username-error"
-        />
-        <Button type="submit" className="w-full">
-          Login
-        </Button>
-      </form>
+          <Input
+            ref={identityInputRef}
+            id="identity"
+            name="identity"
+            type="text"
+            required
+            className="mb-4"
+            autoComplete="username"
+            maxLength={2048}
+            aria-invalid={actionData?.error ? true : undefined}
+            aria-describedby="username-hint username-error"
+          />
+          <Button type="submit" className="w-full">
+            {isSubmitting ? "Logging in..." : "Login"}
+          </Button>
+        </fieldset>
+      </Form>
     </div>
   );
 }
