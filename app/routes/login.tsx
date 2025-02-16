@@ -36,7 +36,11 @@ export async function action({ request }: Route.ActionArgs) {
       );
     }
 
-    const resolvedIdentity = await resolveFromIdentity(identity.trim());
+    const formattedIdentity = identity.startsWith("at://")
+      ? new URL(identity).hostname.trim()
+      : identity.trim();
+
+    const resolvedIdentity = await resolveFromIdentity(formattedIdentity);
 
     const ac = new AbortController();
 
@@ -57,18 +61,16 @@ export async function action({ request }: Route.ActionArgs) {
 }
 
 export default function Login({ actionData }: Route.ComponentProps) {
-  const identityInputRef = useRef<ComponentRef<"input">>(null);
+  const inputRef = useRef<ComponentRef<"input">>(null);
 
   const navigation = useNavigation();
 
   const isSubmitting =
     navigation.state === "submitting" && navigation.formAction === "/login";
 
-  console.log({ navigation });
-
   useEffect(() => {
     if (actionData?.error) {
-      identityInputRef.current?.focus();
+      inputRef?.current?.focus();
     }
   }, []);
   return (
@@ -102,7 +104,7 @@ export default function Login({ actionData }: Route.ComponentProps) {
             did:plc:...
           </span>
           <Input
-            ref={identityInputRef}
+            ref={inputRef}
             id="identity"
             name="identity"
             type="text"
