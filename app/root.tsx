@@ -6,6 +6,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
 } from "react-router";
 
 import type { Route } from "./+types/root";
@@ -14,6 +15,7 @@ import { TID } from "@atproto/common";
 import { getSession } from "#/app/session";
 import { client } from "#/app/atproto/client";
 import { Agent } from "@atproto/api";
+import { Navbar } from "./components/global/Navbar";
 
 export async function action({ request }: Route.ActionArgs) {
   const cookieSession = await getSession(request.headers.get("Cookie"));
@@ -40,6 +42,7 @@ export async function action({ request }: Route.ActionArgs) {
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const { pathname } = useLocation();
   return (
     <html lang="en" className="h-full">
       <head>
@@ -48,8 +51,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="h-full">
-        <main className="h-full antialiased">{children}</main>
+      <body className=" bg-gray-50">
+        {pathname === "/login" ? null : <Navbar />}
+        <main className="h-full antialiased container mx-auto">{children}</main>
         <ScrollRestoration />
         <Scripts />
       </body>

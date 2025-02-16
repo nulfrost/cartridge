@@ -74,7 +74,7 @@ export default function Login({ actionData }: Route.ComponentProps) {
     }
   }, [actionData?.error]);
   return (
-    <div className="h-full flex flex-col items-center justify-center">
+    <div className="h-full flex flex-col items-center justify-center min-h-screen">
       <div className="max-w-md w-full mb-6">
         <h1 className="text-xl font-bold">Login</h1>
         <p>
@@ -93,7 +93,7 @@ export default function Login({ actionData }: Route.ComponentProps) {
       <Form className="w-full max-w-md" method="POST">
         <fieldset disabled={isSubmitting}>
           <Label htmlFor="identity" className="block text-md">
-            Handle or DID
+            Handle
           </Label>
           {actionData?.error ? (
             <span className="block text-red-600 mb-2" id="username-error">
@@ -101,8 +101,7 @@ export default function Login({ actionData }: Route.ComponentProps) {
             </span>
           ) : null}
           <span className="block text-gray-600 mb-2 text-xs" id="username-hint">
-            Please enter a valid handle or DID, e.g. username.bsky.social or
-            did:plc:...
+            Please enter a valid handle, e.g. username.bsky.social
           </span>
           <Input
             ref={inputRef}
@@ -116,7 +115,7 @@ export default function Login({ actionData }: Route.ComponentProps) {
             aria-invalid={actionData?.error ? true : undefined}
             aria-describedby="username-hint username-error"
           />
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full font-bold">
             {isSubmitting ? "Logging in..." : "Login"}
           </Button>
         </fieldset>
