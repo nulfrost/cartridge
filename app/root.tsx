@@ -32,7 +32,7 @@ export async function action({ request }: Route.ActionArgs) {
 
   await agent.com.atproto.repo.putRecord({
     repo: agent.assertDid,
-    collection: "cartridge.community.log",
+    collection: "community.cartridge.log",
     rkey,
     record,
   });

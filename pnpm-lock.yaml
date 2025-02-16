@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@atcute/client':
+        specifier: ^2.0.7
+        version: 2.0.7
       '@atproto/api':
         specifier: ^0.14.0
         version: 0.14.0
@@ -123,6 +126,9 @@ packages:
   '@ampproject/remapping@2.3.0':
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
+
+  '@atcute/client@2.0.7':
+    resolution: {integrity: sha512-bvNahrCGvhZw/EIx0HU/GOoKZEnUaAppbuZh7cu+VsOFA2tdFLnZJed9Hagh5Yz/eUX7QUh5NB4dRTRUdggSLQ==}
 
   '@atproto-labs/did-resolver@0.1.10':
     resolution: {integrity: sha512-o/bl5acf3AIPKZuO6Fd5EmO4INGpi/3Pm08ZpHNCy7s4VZXFmAjZaHeCD7hQ8yEL0EtXnLNIECtKrTBTTx8b+A==}
@@ -2541,6 +2547,8 @@ snapshots:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.8
       '@jridgewell/trace-mapping': 0.3.25
+
+  '@atcute/client@2.0.7': {}
 
   '@atproto-labs/did-resolver@0.1.10':
     dependencies:

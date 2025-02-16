@@ -12,6 +12,7 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
+    "@atcute/client": "^2.0.7",
     "@atproto/api": "^0.14.0",
     "@atproto/common": "^0.4.8",
     "@atproto/lexicon": "^0.4.7",

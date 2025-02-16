@@ -1,32 +1,56 @@
 import { client } from "#/app/atproto/client";
 import { redirect, data } from "react-router";
-import { isValidHandle } from "@atproto/syntax";
 import type { Route } from "./+types/login";
 import { Button } from "#/app/components/ui/button";
 import { Input } from "#/app/components/ui/input";
 import { Label } from "#/app/components/ui/label";
+import { resolveFromIdentity } from "#/app/lib/pds";
+import { OAuthResolverError } from "@atproto/oauth-client-node";
+import { XRPCError } from "@atcute/client";
+
+export function meta() {
+  return [
+    {
+      title: "cartridge | Login",
+    },
+  ];
+}
 
 export async function action({ request }: Route.ActionArgs) {
   try {
     const formData = await request.formData();
-    const handleOrDid = formData.get("handle") as string;
+    const identity = formData.get("identity") as string;
 
-    // user can input a handle or a did
-    // first check which one it is
-    // then check if it is valid
-    // TODO: Support DID login as well as 3rd party PDS login
-    if (typeof handleOrDid !== "string" || !isValidHandle(handleOrDid)) {
-      return data({ error: "Invalid handle" }, { status: 400 });
+    /*
+    Identity formats:
+      at://dane.computer
+      dane.computer
+      did:plc:qttsv4e7pu2jl3ilanfgc3zn
+      did:web:lizthegrey.com
+    */
+    if (typeof identity !== "string") {
+      return data(
+        { error: "Error: handle must be a valid handle" },
+        { status: 400 },
+      );
     }
+
+    const resolvedIdentity = await resolveFromIdentity(identity.trim());
 
     const ac = new AbortController();
 
-    const redirectUrl = await client.authorize(handleOrDid, {
+    const redirectUrl = await client.authorize(resolvedIdentity.did, {
       signal: ac.signal,
     });
 
     throw redirect(redirectUrl.toString());
   } catch (error) {
+    if (error instanceof OAuthResolverError) {
+      return data({ error: error.message }, { status: 400 });
+    }
+    if (error instanceof XRPCError) {
+      return data({ error: error.description }, { status: 400 });
+    }
     throw error;
   }
 }
@@ -49,20 +73,21 @@ export default function Login({ actionData }: Route.ComponentProps) {
         </p>
       </div>
       <form className="w-full max-w-md" method="POST">
-        <Label htmlFor="handle" className="block text-md">
-          Handle
+        <Label htmlFor="identity" className="block text-md">
+          Handle or DID
         </Label>
         {actionData?.error ? (
           <span className="block text-red-600 mb-2" id="username-error">
             {actionData?.error}
           </span>
         ) : null}
-        <span className="block text-gray-600 mb-2" id="username-hint">
-          Please enter a valid handle, e.g. username.bsky.social
+        <span className="block text-gray-600 mb-2 text-xs" id="username-hint">
+          Please enter a valid handle or DID, e.g. username.bsky.social or
+          did:plc:...
         </span>
         <Input
-          id="handle"
-          name="handle"
+          id="identity"
+          name="identity"
           type="text"
           required
           className="mb-4"
