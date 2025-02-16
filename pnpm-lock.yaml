@@ -47,6 +47,9 @@ importers:
       '@react-router/serve':
         specifier: ^7.1.5
         version: 7.1.5(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.3)
+      '@t3-oss/env-core':
+        specifier: ^0.12.0
+        version: 0.12.0(typescript@5.7.3)(zod@3.24.2)
       '@tailwindcss/vite':
         specifier: ^4.0.6
         version: 4.0.6(vite@6.1.0(@types/node@22.13.2)(jiti@2.4.2)(lightningcss@1.29.1))
@@ -77,6 +80,9 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@4.0.6)
+      zod:
+        specifier: ^3.24.2
+        version: 3.24.2
     devDependencies:
       '@atproto/lex-cli':
         specifier: ^0.6.0
@@ -918,6 +924,20 @@ packages:
     resolution: {integrity: sha512-ar80GhdZb4DgmW3myIS9nRFYcpJRSME8iqWgzH2i44u+IdrzmiXVxeFnExQ5v4JYUSpg94bWjevMG8JHf1Da5Q==}
     cpu: [x64]
     os: [win32]
+
+  '@t3-oss/env-core@0.12.0':
+    resolution: {integrity: sha512-lOPj8d9nJJTt81mMuN9GMk8x5veOt7q9m11OSnCBJhwp1QrL/qR+M8Y467ULBSm9SunosryWNbmQQbgoiMgcdw==}
+    peerDependencies:
+      typescript: '>=5.0.0'
+      valibot: ^1.0.0-beta.7 || ^1.0.0
+      zod: ^3.24.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+      valibot:
+        optional: true
+      zod:
+        optional: true
 
   '@tailwindcss/node@4.0.6':
     resolution: {integrity: sha512-jb6E0WeSq7OQbVYcIJ6LxnZTeC4HjMvbzFBMCrQff4R50HBlo/obmYNk6V2GCUXDeqiXtvtrQgcIbT+/boB03Q==}
@@ -2538,8 +2558,8 @@ packages:
     resolution: {integrity: sha512-b4JR1PFR10y1mKjhHY9LaGo6tmrgjit7hxVIeAmyMw3jegXR4dhYqLaQF5zMXZxY7tLpMyJeLjr1C4rLmkVe8g==}
     engines: {node: '>=12.20'}
 
-  zod@3.24.1:
-    resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
+  zod@3.24.2:
+    resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
 
 snapshots:
 
@@ -2557,7 +2577,7 @@ snapshots:
       '@atproto-labs/simple-store': 0.1.2
       '@atproto-labs/simple-store-memory': 0.1.2
       '@atproto/did': 0.1.5
-      zod: 3.24.1
+      zod: 3.24.2
 
   '@atproto-labs/fetch-node@0.1.7':
     dependencies:
@@ -2571,7 +2591,7 @@ snapshots:
     dependencies:
       '@atproto-labs/pipe': 0.1.0
     optionalDependencies:
-      zod: 3.24.1
+      zod: 3.24.2
 
   '@atproto-labs/handle-resolver-node@0.1.13':
     dependencies:
@@ -2584,7 +2604,7 @@ snapshots:
       '@atproto-labs/simple-store': 0.1.2
       '@atproto-labs/simple-store-memory': 0.1.2
       '@atproto/did': 0.1.5
-      zod: 3.24.1
+      zod: 3.24.2
 
   '@atproto-labs/identity-resolver@0.1.13':
     dependencies:
@@ -2610,14 +2630,14 @@ snapshots:
       await-lock: 2.2.2
       multiformats: 9.9.0
       tlds: 1.255.0
-      zod: 3.24.1
+      zod: 3.24.2
 
   '@atproto/common-web@0.4.0':
     dependencies:
       graphemer: 1.4.0
       multiformats: 9.9.0
       uint8arrays: 3.0.0
-      zod: 3.24.1
+      zod: 3.24.2
 
   '@atproto/common@0.4.8':
     dependencies:
@@ -2630,7 +2650,7 @@ snapshots:
 
   '@atproto/did@0.1.5':
     dependencies:
-      zod: 3.24.1
+      zod: 3.24.2
 
   '@atproto/jwk-jose@0.1.4':
     dependencies:
@@ -2641,12 +2661,12 @@ snapshots:
     dependencies:
       '@atproto/jwk': 0.1.3
       '@atproto/jwk-jose': 0.1.4
-      zod: 3.24.1
+      zod: 3.24.2
 
   '@atproto/jwk@0.1.3':
     dependencies:
       multiformats: 9.9.0
-      zod: 3.24.1
+      zod: 3.24.2
 
   '@atproto/lex-cli@0.6.0':
     dependencies:
@@ -2657,7 +2677,7 @@ snapshots:
       prettier: 3.4.2
       ts-morph: 16.0.0
       yesno: 0.4.0
-      zod: 3.24.1
+      zod: 3.24.2
 
   '@atproto/lexicon@0.4.7':
     dependencies:
@@ -2665,7 +2685,7 @@ snapshots:
       '@atproto/syntax': 0.3.3
       iso-datestring-validator: 2.2.2
       multiformats: 9.9.0
-      zod: 3.24.1
+      zod: 3.24.2
 
   '@atproto/oauth-client-node@0.2.11':
     dependencies:
@@ -2692,19 +2712,19 @@ snapshots:
       '@atproto/oauth-types': 0.2.3
       '@atproto/xrpc': 0.6.9
       multiformats: 9.9.0
-      zod: 3.24.1
+      zod: 3.24.2
 
   '@atproto/oauth-types@0.2.3':
     dependencies:
       '@atproto/jwk': 0.1.3
-      zod: 3.24.1
+      zod: 3.24.2
 
   '@atproto/syntax@0.3.3': {}
 
   '@atproto/xrpc@0.6.9':
     dependencies:
       '@atproto/lexicon': 0.4.7
-      zod: 3.24.1
+      zod: 3.24.2
 
   '@babel/code-frame@7.26.2':
     dependencies:
@@ -3416,6 +3436,11 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.32.1':
     optional: true
+
+  '@t3-oss/env-core@0.12.0(typescript@5.7.3)(zod@3.24.2)':
+    optionalDependencies:
+      typescript: 5.7.3
+      zod: 3.24.2
 
   '@tailwindcss/node@4.0.6':
     dependencies:
@@ -4931,4 +4956,4 @@ snapshots:
 
   yocto-queue@1.1.1: {}
 
-  zod@3.24.1: {}
+  zod@3.24.2: {}

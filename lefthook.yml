@@ -1,12 +1,10 @@
 pre-commit:
-  parallel: true
   commands:
     lint:
-      run: pnpm biome lint
       glob: "*.{ts,tsx}"
       exclude:
-        - "src/**/*.{ts,tsx}"
-      root: "app/"
+        - app/src/*.ts
+      run: pnpm biome lint --no-errors-on-unmatched --files-ignore-unknown=true
 
 commit-msg:
   commands:
