@@ -1,4 +1,5 @@
 import { createCookieSessionStorage } from "react-router";
+import { env } from "#/app/env";
 
 type SessionData = {
   did: string;
@@ -16,7 +17,7 @@ const { commitSession, getSession, destroySession } =
       path: "/",
       sameSite: "lax",
       maxAge: 60 * 60 * 24 * 7,
-      secrets: [process.env.SESSION_SECRET!],
+      secrets: [env.SESSION_SECRET],
       secure: import.meta.env.PROD,
     },
   });

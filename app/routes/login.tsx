@@ -72,7 +72,7 @@ export default function Login({ actionData }: Route.ComponentProps) {
     if (actionData?.error) {
       inputRef?.current?.focus();
     }
-  }, []);
+  }, [actionData?.error]);
   return (
     <div className="h-full flex flex-col items-center justify-center">
       <div className="max-w-md w-full mb-6">
@@ -84,6 +84,7 @@ export default function Login({ actionData }: Route.ComponentProps) {
             target="_blank"
             className="underline underline-offset-4 text-primary"
             aria-label="Sign up for a new account on Bluesky, opens in a new tab"
+            rel="noreferrer"
           >
             Sign up
           </a>
