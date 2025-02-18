@@ -2,7 +2,7 @@
 nixPkgs = ['nodejs', 'pnpm']
 
 [phases.install]
-cmds = ['chmod u+x ./skip-hooks.sh && pnpm install --omit=dev']
+cmds = ['chmod u+x ./skip-hooks.sh && pnpm install']
 
 [phases.build]
 cmds = ['pnpm build']
