@@ -1,11 +1,11 @@
 [phases.setup]
-nixPkgs = ['nodejs']
+nixPkgs = ['nodejs', 'pnpm']
 
 [phases.install]
-cmds = ['npm install --legacy-peer-deps']
+cmds = ['chmod u+x ./skip-hooks.sh && pnpm install --omit=dev']
 
 [phases.build]
-cmds = ['npm run build']
+cmds = ['pnpm build']
 
 [start]
-cmd = 'npm run start'
+cmd = 'pnpm start'

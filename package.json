@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "postinstall": "./skip-hooks.sh",
     "build": "react-router build",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
@@ -51,5 +52,16 @@
     "typescript": "^5.7.3",
     "vite": "^6.1.0",
     "vite-tsconfig-paths": "^5.1.4"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@biomejs/biome",
+      "@prisma/client",
+      "@prisma/engines",
+      "cbor-extract",
+      "esbuild",
+      "lefthook",
+      "prisma"
+    ]
   }
 }
