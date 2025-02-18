@@ -3,7 +3,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "preinstall": "npx -y only-allow pnpm",
     "postinstall": "lefthook install",
     "build": "react-router build",
     "dev": "react-router dev",
@@ -13,7 +12,7 @@
   },
   "dependencies": {
     "@atcute/client": "^2.0.7",
-    "@atproto/api": "^0.14.0",
+    "@atproto/api": "^0.14.1",
     "@atproto/common": "^0.4.8",
     "@atproto/lexicon": "^0.4.7",
     "@atproto/oauth-client-node": "^0.2.11",
@@ -39,14 +38,14 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "@atproto/lex-cli": "^0.6.0",
+    "@atproto/lex-cli": "^0.6.1",
     "@biomejs/biome": "1.9.4",
     "@commitlint/cli": "^19.7.1",
     "@commitlint/config-conventional": "^19.7.1",
     "@react-router/dev": "^7.1.5",
     "@types/node": "^22",
-    "@types/react": "^19.0.8",
-    "@types/react-dom": "^19.0.3",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
     "lefthook": "^1.10.10",
     "prisma": "^6.3.1",
     "tailwindcss": "^4.0.6",
