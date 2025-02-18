@@ -7,7 +7,7 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": ["app/src/**/*.ts"]
+    "ignore": ["app/src/**/*.ts", "build/"]
   },
   "formatter": {
     "enabled": true,

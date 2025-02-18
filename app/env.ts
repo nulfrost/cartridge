@@ -5,6 +5,8 @@ export const env = createEnv({
   server: {
     DATABASE_URL: z.string().url(),
     SESSION_SECRET: z.string(),
+    IGDB_API_CLIENT_ID: z.string(),
+    IGDB_API_CLIENT_SECRET: z.string()
   },
   onValidationError: (error) => {
     console.log(error);
