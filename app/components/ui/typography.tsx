@@ -25,7 +25,7 @@ export function Heading2({
   ...props
 }: React.ComponentProps<"h2">) {
   return (
-    <h1
+    <h2
       className={cn(
         "scroll-m-20 text-3xl font-semibold tracking-tight",
         className
@@ -33,7 +33,7 @@ export function Heading2({
       {...props}
     >
       {children}
-    </h1>
+    </h2>
   );
 }
 
@@ -43,7 +43,7 @@ export function Heading3({
   ...props
 }: React.ComponentProps<"h3">) {
   return (
-    <h1
+    <h3
       className={cn(
         "scroll-m-20 text-2xl font-semibold tracking-tight",
         className
@@ -51,7 +51,7 @@ export function Heading3({
       {...props}
     >
       {children}
-    </h1>
+    </h3>
   );
 }
 
@@ -61,7 +61,7 @@ export function Heading4({
   ...props
 }: React.ComponentProps<"h4">) {
   return (
-    <h1
+    <h4
       className={cn(
         "scroll-m-20 text-xl font-semibold tracking-tight",
         className
@@ -69,7 +69,7 @@ export function Heading4({
       {...props}
     >
       {children}
-    </h1>
+    </h4>
   );
 }
 
