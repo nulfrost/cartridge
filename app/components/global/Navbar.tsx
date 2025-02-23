@@ -3,7 +3,7 @@ import { Link } from "react-router";
 export function Navbar() {
   return (
     <header className="bg-white border-b border-gray-100 py-4 shadow-xs">
-      <div className="container mx-auto flex justify-between items-center">
+      <div className="container mx-auto flex justify-between items-center px-3 xl:px-0">
         <Link to="/" className="font-bold text-xl">
           cartridge.
         </Link>

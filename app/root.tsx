@@ -53,7 +53,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body className=" bg-gray-50">
         {pathname === "/login" ? null : <Navbar />}
-        <main className="h-full antialiased container mx-auto">{children}</main>
+        <main className="h-full antialiased container mx-auto px-3 xl:px-0">
+          {children}
+        </main>
         <ScrollRestoration />
         <Scripts />
       </body>
