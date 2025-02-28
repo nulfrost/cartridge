@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "community.cartridge.list",
+  "description": "A curated list of games by a user",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["title", "gameIds"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Title of the list"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 500,
+            "description": "Description of the list"
+          },
+          "gameIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Ordered array of game IDs included in this list"
+          },
+          "isPublic": {
+            "type": "boolean",
+            "default": true,
+            "description": "Whether the list is public or private"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 30
+            },
+            "description": "Tags/categories for the list"
+          }
+        }
+      }
+    }
+  }
+}

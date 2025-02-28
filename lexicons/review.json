@@ -29,6 +29,18 @@
             "type": "boolean",
             "default": false,
             "description": "Whether the review contains spoilers or not"
+          },
+          "platform": {
+            "type": "string",
+            "description": "The platform on which the game was played for this review",
+            "knownValues": [
+              "community.cartridge.defs#playstation",
+              "community.cartridge.defs#pc",
+              "community.cartridge.defs#xbox",
+              "community.cartridge.defs#nintendo",
+              "community.cartridge.defs#mobile",
+              "community.cartridge.defs#vr"
+            ]
           }
         }
       }
