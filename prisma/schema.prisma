@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output = "../../node_modules/.prisma/client"
+  output   = "../../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -15,6 +15,7 @@ model User {
   created_at DateTime @default(now())
   logs       Log[]
   reviews    Review[]
+  lists      List[]
 
   @@map("users")
 }
@@ -27,9 +28,11 @@ model Game {
   game_studios    String[]
   platforms       String[]
   slug            String    @unique
+  igdb_game_id    Int       @unique
 
   logs    Log[]
   reviews Review[]
+  lists   ListGame[]
 
   @@map("games")
 }
@@ -39,7 +42,7 @@ model Log {
   uri         String
   status      Status
   created_at  DateTime  @default(now())
-  updated_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
   started_at  DateTime?
   finished_at DateTime?
 
@@ -55,16 +58,24 @@ model Log {
 }
 
 model Review {
-  id     String  @id @default(cuid())
-  rating Int
-  text   String?
-  uri    String  @unique
+  id       String  @id @default(cuid())
+  rating   Int
+  text     String?
+  uri      String  @unique
+  platform String
 
   reviewer   User   @relation(fields: [reviewerId], references: [id])
   reviewerId String
 
   game   Game   @relation(fields: [gameId], references: [id])
   gameId String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([reviewerId])
+  @@index([gameId])
+  @@map("reviews")
 }
 
 model Session {
@@ -79,6 +90,40 @@ model State {
   state String
 
   @@map("states")
+}
+
+model List {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  is_public   Boolean  @default(true)
+  uri         String
+  tags        String[]
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId String
+
+  games ListGame[]
+
+  @@index([creatorId])
+  @@map("lists")
+}
+
+model ListGame {
+  id     String  @id @default(cuid())
+  list   List    @relation(fields: [listId], references: [id])
+  listId String
+  game   Game    @relation(fields: [gameId], references: [id])
+  gameId String
+  order  Int     @default(0)
+  notes  String?
+
+  @@unique([listId, gameId])
+  @@index([listId])
+  @@index([gameId])
+  @@map("list_games")
 }
 
 enum Status {

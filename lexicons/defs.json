@@ -38,6 +38,14 @@
     "nintendo": {
       "type": "token",
       "description": "Games that are available on the nintendo platform"
+    },
+    "mobile": {
+      "type": "token",
+      "description": "Games that are available on mobile platforms (iOS/Android)"
+    },
+    "vr": {
+      "type": "token",
+      "description": "Games that are available on VR platforms"
     }
   }
 }
