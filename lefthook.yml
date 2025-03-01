@@ -6,10 +6,10 @@ pre-commit:
         - app/src/*.ts
       run: pnpm biome lint --no-errors-on-unmatched --files-ignore-unknown=true
     format:
-    glob: "*.{ts,tsx}"
-    exclude:
-      - app/src/*.ts
-    run: pnpm biome format --write ./app
+      glob: "*.{ts,tsx}"
+      exclude:
+        - app/src/*.ts
+      run: pnpm biome format --write ./app
 
 commit-msg:
   commands:
