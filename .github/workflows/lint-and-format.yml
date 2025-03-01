@@ -1,0 +1,23 @@
+name: Lint and Format
+
+on: [push]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
+      - name: Lint
+        run: pnpm biome lint --no-errors-on-unmatched --files-ignore-unknown=true
+      - name: Format
+        run: pnpm biome format --write ./app
