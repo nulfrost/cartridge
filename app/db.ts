@@ -1,7 +1,7 @@
-import { remember } from "@epic-web/remember";
-import { PrismaClient } from "@prisma/client";
+import { remember } from '@epic-web/remember';
+import { PrismaClient } from '@prisma/client';
 
 export const prisma: PrismaClient = remember(
-	"prisma",
+	'prisma',
 	() => new PrismaClient(),
 );

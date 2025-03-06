@@ -1,12 +1,12 @@
-import { getPdsEndpoint } from "@atcute/client/utils/did";
-import { CredentialManager, XRPC } from "@atcute/client";
+import { getPdsEndpoint } from '@atcute/client/utils/did';
+import { CredentialManager, XRPC } from '@atcute/client';
 
 async function resolveHandle(handle: string) {
 	const rpc = new XRPC({
-		handler: new CredentialManager({ service: "https://public.api.bsky.app" }),
+		handler: new CredentialManager({ service: 'https://public.api.bsky.app' }),
 	});
 
-	const response = await rpc.get("com.atproto.identity.resolveHandle", {
+	const response = await rpc.get('com.atproto.identity.resolveHandle', {
 		params: { handle: handle },
 	});
 
@@ -26,7 +26,7 @@ export async function resolveFromIdentity(identity: string) {
 	const serviceEndpoint = getPdsEndpoint(didDoc);
 
 	if (!serviceEndpoint) {
-		throw new Error("could not locate service endpoint");
+		throw new Error('could not locate service endpoint');
 	}
 
 	return {
@@ -37,8 +37,8 @@ export async function resolveFromIdentity(identity: string) {
 }
 
 async function getDidDocument(did: string) {
-	const didUrl = did.startsWith("did:web")
-		? `https://${did.split(":")[2]}/.well-known/did.json`
+	const didUrl = did.startsWith('did:web')
+		? `https://${did.split(':')[2]}/.well-known/did.json`
 		: `https://plc.directory/${did}`;
 
 	const response = await fetch(didUrl);

@@ -23,6 +23,9 @@
 			"style": {
 				"noParameterAssign": "warn",
 				"noNonNullAssertion": "warn"
+			},
+			"suspicious": {
+				"noArrayIndexKey": "warn"
 			}
 		}
 	},

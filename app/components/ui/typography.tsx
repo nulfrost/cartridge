@@ -1,15 +1,15 @@
-import type * as React from "react";
-import { cn } from "#/app/lib/utils";
+import type * as React from 'react';
+import { cn } from '#/app/lib/utils';
 
 export function Heading1({
 	children,
 	className,
 	...props
-}: React.ComponentProps<"h1">) {
+}: React.ComponentProps<'h1'>) {
 	return (
 		<h1
 			className={cn(
-				"scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",
+				'scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl',
 				className,
 			)}
 			{...props}
@@ -23,11 +23,11 @@ export function Heading2({
 	children,
 	className,
 	...props
-}: React.ComponentProps<"h2">) {
+}: React.ComponentProps<'h2'>) {
 	return (
 		<h2
 			className={cn(
-				"scroll-m-20 text-3xl font-semibold tracking-tight",
+				'scroll-m-20 text-3xl font-semibold tracking-tight',
 				className,
 			)}
 			{...props}
@@ -41,11 +41,11 @@ export function Heading3({
 	children,
 	className,
 	...props
-}: React.ComponentProps<"h3">) {
+}: React.ComponentProps<'h3'>) {
 	return (
 		<h3
 			className={cn(
-				"scroll-m-20 text-2xl font-semibold tracking-tight",
+				'scroll-m-20 text-2xl font-semibold tracking-tight',
 				className,
 			)}
 			{...props}
@@ -59,11 +59,11 @@ export function Heading4({
 	children,
 	className,
 	...props
-}: React.ComponentProps<"h4">) {
+}: React.ComponentProps<'h4'>) {
 	return (
 		<h4
 			className={cn(
-				"scroll-m-20 text-xl font-semibold tracking-tight",
+				'scroll-m-20 text-xl font-semibold tracking-tight',
 				className,
 			)}
 			{...props}
@@ -77,10 +77,10 @@ export function Paragraph({
 	children,
 	className,
 	...props
-}: React.ComponentProps<"p">) {
+}: React.ComponentProps<'p'>) {
 	return (
 		<p
-			className={cn("leading-7 [&:not(:first-child)]:mt-6", className)}
+			className={cn('leading-7 [&:not(:first-child)]:mt-6', className)}
 			{...props}
 		>
 			{children}

@@ -1,5 +1,5 @@
-import { env } from "#/app/env";
-import { ofetch } from "ofetch";
+import { env } from '#/app/env';
+import { ofetch } from 'ofetch';
 
 async function getIGDBAccessToken() {
 	const response = await ofetch<{
@@ -9,7 +9,7 @@ async function getIGDBAccessToken() {
 	}>(
 		`https://id.twitch.tv/oauth2/token?client_id=${env.IGDB_API_CLIENT_ID}&client_secret=${env.IGDB_API_CLIENT_SECRET}&grant_type=client_credentials`,
 		{
-			method: "POST",
+			method: 'POST',
 		},
 	);
 
@@ -17,13 +17,13 @@ async function getIGDBAccessToken() {
 }
 
 export const igdb = ofetch.create({
-	baseURL: "https://api.igdb.com/v4",
+	baseURL: 'https://api.igdb.com/v4',
 	async onRequest({ options }) {
-		options.headers.set("Client-ID", env.IGDB_API_CLIENT_ID);
+		options.headers.set('Client-ID', env.IGDB_API_CLIENT_ID);
 		// if for some reason the token is not already set, set one
-		if (!options.headers.has("Authorization")) {
+		if (!options.headers.has('Authorization')) {
 			options.headers.set(
-				"Authorization",
+				'Authorization',
 				`Bearer ${await getIGDBAccessToken()}`,
 			);
 		}
@@ -32,7 +32,7 @@ export const igdb = ofetch.create({
 		// refresh the token when it expires
 		if (response.status === 401) {
 			options.headers.set(
-				"Authorization",
+				'Authorization',
 				`Bearer ${await getIGDBAccessToken()}`,
 			);
 		}

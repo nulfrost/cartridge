@@ -1,18 +1,18 @@
-import { client } from "#/app/atproto/client";
-import { redirect, data, useNavigation, Form } from "react-router";
-import type { Route } from "./+types/login";
-import { Button } from "#/app/components/ui/button";
-import { Input } from "#/app/components/ui/input";
-import { Label } from "#/app/components/ui/label";
-import { resolveFromIdentity } from "#/app/lib/pds";
-import { OAuthResolverError } from "@atproto/oauth-client-node";
-import { XRPCError } from "@atcute/client";
-import { useEffect, useRef, type ComponentRef } from "react";
+import { client } from '#/app/atproto/client';
+import { redirect, data, useNavigation, Form } from 'react-router';
+import type { Route } from './+types/login';
+import { Button } from '#/app/components/ui/button';
+import { Input } from '#/app/components/ui/input';
+import { Label } from '#/app/components/ui/label';
+import { resolveFromIdentity } from '#/app/lib/pds';
+import { OAuthResolverError } from '@atproto/oauth-client-node';
+import { XRPCError } from '@atcute/client';
+import { useEffect, useRef, type ComponentRef } from 'react';
 
 export function meta() {
 	return [
 		{
-			title: "cartridge | Login",
+			title: 'cartridge | Login',
 		},
 	];
 }
@@ -20,7 +20,7 @@ export function meta() {
 export async function action({ request }: Route.ActionArgs) {
 	try {
 		const formData = await request.formData();
-		const identity = formData.get("identity") as string;
+		const identity = formData.get('identity') as string;
 
 		/*
     Identity formats:
@@ -29,14 +29,14 @@ export async function action({ request }: Route.ActionArgs) {
       did:plc:qttsv4e7pu2jl3ilanfgc3zn
       did:web:lizthegrey.com
     */
-		if (typeof identity !== "string") {
+		if (typeof identity !== 'string') {
 			return data(
-				{ error: "Error: handle must be a valid handle" },
+				{ error: 'Error: handle must be a valid handle' },
 				{ status: 400 },
 			);
 		}
 
-		const formattedIdentity = identity.startsWith("at://")
+		const formattedIdentity = identity.startsWith('at://')
 			? new URL(identity).hostname.trim()
 			: identity.trim();
 
@@ -61,12 +61,12 @@ export async function action({ request }: Route.ActionArgs) {
 }
 
 export default function Login({ actionData }: Route.ComponentProps) {
-	const inputRef = useRef<ComponentRef<"input">>(null);
+	const inputRef = useRef<ComponentRef<'input'>>(null);
 
 	const navigation = useNavigation();
 
 	const isSubmitting =
-		navigation.state === "submitting" && navigation.formAction === "/login";
+		navigation.state === 'submitting' && navigation.formAction === '/login';
 
 	useEffect(() => {
 		if (actionData?.error) {
@@ -78,7 +78,7 @@ export default function Login({ actionData }: Route.ComponentProps) {
 			<div className="max-w-md w-full mb-6">
 				<h1 className="text-xl font-bold">Login</h1>
 				<p>
-					Don&apos;t have an account?{" "}
+					Don&apos;t have an account?{' '}
 					<a
 						href="https://bsky.app/"
 						target="_blank"
@@ -116,7 +116,7 @@ export default function Login({ actionData }: Route.ComponentProps) {
 						aria-describedby="username-hint username-error"
 					/>
 					<Button type="submit" className="w-full font-bold">
-						{isSubmitting ? "Logging in..." : "Login"}
+						{isSubmitting ? 'Logging in...' : 'Login'}
 					</Button>
 				</fieldset>
 			</Form>

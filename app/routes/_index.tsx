@@ -1,22 +1,22 @@
-import { Input } from "#/app/components/ui/input";
-import { Label } from "#/app/components/ui/label";
-import { Button } from "#/app/components/ui/button";
-import { Filter } from "lucide-react";
-import { igdb } from "#/app/igdb";
-import type { Route } from "./+types/_index";
+import { Input } from '#/app/components/ui/input';
+import { Label } from '#/app/components/ui/label';
+import { Button } from '#/app/components/ui/button';
+import { Filter } from 'lucide-react';
+import { igdb } from '#/app/igdb';
+import type { Route } from './+types/_index';
 
 export function meta() {
 	return [
 		{
-			title: "cartridge | Home",
+			title: 'cartridge | Home',
 		},
 	];
 }
 
 export async function loader() {
-	const games = await igdb("/games", {
-		body: "fields id,age_ratings,artworks,cover,first_release_date,genres,name;",
-		method: "POST",
+	const games = await igdb('/games', {
+		body: 'fields id,age_ratings,artworks,cover,first_release_date,genres,name;',
+		method: 'POST',
 	});
 	return { games };
 }
